@@ -9,12 +9,12 @@
 #rawEggRestoreHunger: <Integer (1 is half of a drumstick)>
 #roastedEggRestoreSaturation: <Float saturation>
 #roastedEggRestoreHunger: <Integer (1 is half of a drumstick)>
-#effects:
-#  <Efect ID>:
+#rawEggEffects:
+#  <Effect ID>:
 #    chance: <integer from 0-100>
 #    amplifier: <amplifier>
 #    duration: <seconds>
-#  <Efect ID>:
+#  <Effect ID>:
 #    chance: <integer from 0-100>
 #    amplifier: <amplifier>
 #    duration: <seconds>

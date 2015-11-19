@@ -3,11 +3,11 @@ rawEggRestoreHunger: 1
 roastedEggRestoreSaturation: 1
 roastedEggRestoreHunger: 1
 rawEggEffects:
-  17:
+  '17':
     chance: 40
     amplifier: 2
     duration: 20
-  19:
+  '19':
     chance: 10
     amplifier: 1
     duration: 10
