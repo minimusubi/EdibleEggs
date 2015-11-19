@@ -48,7 +48,7 @@ public class CommandHandler implements CommandExecutor {
 
 	private boolean hasPermission(CommandSender sender) {
 		if (sender instanceof Player) {
-			return sender.isOp();
+			return sender.hasPermission("edibleeggs.admin");
 		}
 		return true;
 	}
