@@ -1,0 +1,27 @@
+#EdibleEggs configuration file
+#
+#This configuration file specifies the effects that a player
+# can get from eating a raw egg.
+#
+#Configuration format is as follows:
+#
+#rawEggRestoreSaturation: <Float saturation>
+#rawEggRestoreHunger: <Integer (1 is half of a drumstick)>
+#roastedEggRestoreSaturation: <Float saturation>
+#roastedEggRestoreHunger: <Integer (1 is half of a drumstick)>
+#effects:
+#  <Efect ID>:
+#    chance: <integer from 0-100>
+#    amplifier: <amplifier>
+#    duration: <seconds>
+#  <Efect ID>:
+#    chance: <integer from 0-100>
+#    amplifier: <amplifier>
+#    duration: <seconds>
+#
+#Any amount of effects can be added/removed.
+#
+#If the chances of all defined effects add up to more than
+#100, an exception is thrown. If the chances add up to less
+#than 100, the remainder is the chance that no effect will
+#be applied.
