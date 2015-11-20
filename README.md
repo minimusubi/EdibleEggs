@@ -1,2 +1,2 @@
 # EdibleEggs
-Spigot plugin that makes eggs edible
+Bukkit/Spigot plugin that makes eggs edible
