@@ -35,8 +35,8 @@ public class PlayerInteractListener implements Listener {
 					ItemStack itemStack = player.getItemInHand();
 
 					if (!isRoasted(itemStack)) {
-						HashMap<Integer, HashMap<String, Integer>> effectsMap = plugin.getEffects();
-						ArrayList<Integer> chanceList = plugin.getChances();
+						HashMap<Integer, HashMap<String, Integer>> effectsMap = plugin.getRawEggEffects();
+						ArrayList<Integer> chanceList = plugin.getRawEggChances();
 
 						player.setFoodLevel(
 								Math.min(player.getFoodLevel() + plugin.getConfig().getInt("rawEggRestoreHunger"), 20));

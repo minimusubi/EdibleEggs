@@ -19,8 +19,8 @@ import net.minecraft.server.v1_8_R3.NBTTagCompound;
 public class Main extends JavaPlugin {
 
 	private static Configuration configuration;
-	private HashMap<Integer, HashMap<String, Integer>> effects;
-	private ArrayList<Integer> chanceList;
+	private HashMap<Integer, HashMap<String, Integer>> rawEggEffects;
+	private ArrayList<Integer> rawEggChanceList;
 
 	@Override
 	public void onEnable() {
@@ -57,8 +57,8 @@ public class Main extends JavaPlugin {
 	}
 
 	private void parseEffects() {
-		effects = new HashMap<Integer, HashMap<String, Integer>>();
-		chanceList = new ArrayList<Integer>();
+		rawEggEffects = new HashMap<Integer, HashMap<String, Integer>>();
+		rawEggChanceList = new ArrayList<Integer>();
 		int totalChance = 0;
 
 		Set<String> effectList = configuration.getConfigurationSection("rawEggEffects").getKeys(false);
@@ -93,23 +93,23 @@ public class Main extends JavaPlugin {
 				effectMap.put("duration", effectSection.getInt("duration"));
 			}
 
-			effects.put(totalChance, effectMap);
-			chanceList.add(totalChance);
+			rawEggEffects.put(totalChance, effectMap);
+			rawEggChanceList.add(totalChance);
 		}
 
-		Collections.sort(chanceList);
+		Collections.sort(rawEggChanceList);
 
 		if (totalChance > 100) {
 			throw new ChanceBoundsException("The total chances for the effects exceed 100! (" + totalChance + ")");
 		}
 	}
 
-	public HashMap<Integer, HashMap<String, Integer>> getEffects() {
-		return effects;
+	public HashMap<Integer, HashMap<String, Integer>> getRawEggEffects() {
+		return rawEggEffects;
 	}
 
-	public ArrayList<Integer> getChances() {
-		return chanceList;
+	public ArrayList<Integer> getRawEggChances() {
+		return rawEggChanceList;
 	}
 
 	public boolean reloadCustomConfig() {
@@ -120,6 +120,7 @@ public class Main extends JavaPlugin {
 			options.copyDefaults(true);
 			// options.copyHeader();
 			saveConfig();
+			parseEffects();
 		} catch (ScannerException e) {
 			e.printStackTrace();
 			return false;
