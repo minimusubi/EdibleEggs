@@ -1,3 +1,6 @@
+v1.0.2 (11/21/15)
+Added permissions
+
 v1.0.1 (11/19/15)
 Fixed reload command
 

@@ -21,8 +21,10 @@ public class CommandHandler implements CommandExecutor {
 			return true;
 		}
 
-		if (args[0].equalsIgnoreCase("reload")) {
-			if (!hasPermission(sender)) {
+		String subCommand = args[0].toLowerCase();
+
+		if (subCommand.equals("reload")) {
+			if (!hasPermission(sender, subCommand)) {
 				sender.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do that!");
 				return true;
 			}
@@ -46,9 +48,9 @@ public class CommandHandler implements CommandExecutor {
 				ChatColor.GOLD + "/edibleeggs reload" + ChatColor.RESET + " - Reloads the configuration file");
 	}
 
-	private boolean hasPermission(CommandSender sender) {
+	private boolean hasPermission(CommandSender sender, String subCommand) {
 		if (sender instanceof Player) {
-			return sender.isOp();
+			return sender.hasPermission("edibleeggs." + subCommand);
 		}
 		return true;
 	}

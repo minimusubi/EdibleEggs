@@ -31,7 +31,7 @@ public class PlayerInteractListener implements Listener {
 		Player player = event.getPlayer();
 		if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
 			if (player.isSneaking() && event.hasItem() && event.getItem().getType() == Material.EGG) {
-				if (player.getFoodLevel() < 20) {
+				if (player.getFoodLevel() < 20 && player.hasPermission("edibleeggs.eat")) {
 					ItemStack itemStack = player.getItemInHand();
 
 					if (!isRoasted(itemStack)) {

@@ -1,8 +1,20 @@
 name: EdibleEggs
 author: Smiley43210
 main: com.github.smiley43210.edibleeggs.Main
-version: 1.0.1
+version: 1.0.2
 commands:
   edibleeggs:
     description: Reload the EdibleEggs configuration file.
     usage: /<command> reload
+permissions:
+  edibleeggs.*:
+    description: Allows player to utilize every feature of EdibleEggs.
+    children:
+      edibleeggs.reload: true
+      edibleeggs.eat: true
+  edibleeggs.reload:
+    description: Allows player to reload the plugin configuration.
+    default: op
+  edibleeggs.eat:
+    description: Allows player to eat eggs.
+    default: true
