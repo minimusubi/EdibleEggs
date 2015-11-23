@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
@@ -13,12 +14,16 @@ import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.yaml.snakeyaml.scanner.ScannerException;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 
 public class Main extends JavaPlugin {
 
+	private final int UPDATE_INTERVAL = 60 * 60 * 24;
+
 	private static Configuration configuration;
+	private BukkitScheduler scheduler;
 	private HashMap<Integer, HashMap<String, Integer>> rawEggEffects;
 	private ArrayList<Integer> rawEggChanceList;
 
@@ -29,6 +34,14 @@ public class Main extends JavaPlugin {
 		options.copyDefaults(true);
 		// options.copyHeader();
 		saveConfig();
+
+		scheduler = Bukkit.getScheduler();
+		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+			@Override
+			public void run() {
+				scheduleUpdate(1);
+			}
+		}, 20L, UPDATE_INTERVAL * 20L);
 
 		getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
 
@@ -126,5 +139,25 @@ public class Main extends JavaPlugin {
 			return false;
 		}
 		return true;
+	}
+
+	private void scheduleUpdate(int delay) {
+		Main plugin = this;
+		scheduler.scheduleSyncDelayedTask(this, new Runnable() {
+			@Override
+			public void run() {
+				try {
+					UpdateChecker updateChecker = new UpdateChecker(plugin);
+					if (updateChecker.hasUpdate()) {
+						plugin.getLogger()
+								.warning("An update (v" + updateChecker.getNewVersion() + ") is now available!");
+						plugin.getLogger().warning("Download it from http://dev.bukkit.org/bukkit-plugins/edibleeggs/");
+					}
+				} catch (UpdateCheckException e) {
+					plugin.getLogger().warning("Unable to check for updates! Will try again later.");
+					scheduleUpdate(60 * 5);
+				}
+			}
+		}, delay * 20L);
 	}
 }
