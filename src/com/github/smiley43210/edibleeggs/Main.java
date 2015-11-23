@@ -36,12 +36,7 @@ public class Main extends JavaPlugin {
 		saveConfig();
 
 		scheduler = Bukkit.getScheduler();
-		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
-			@Override
-			public void run() {
-				scheduleUpdate(1);
-			}
-		}, 20L, UPDATE_INTERVAL * 20L);
+		scheduleUpdates();
 
 		getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
 
@@ -67,6 +62,39 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+	}
+
+	private void scheduleUpdates() {
+		scheduler.cancelTasks(this);
+
+		if (getConfig().getBoolean("notifyOnAvailableUpdate")) {
+			scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+				@Override
+				public void run() {
+					scheduleUpdate(1);
+				}
+			}, 20L, UPDATE_INTERVAL * 20L);
+		}
+	}
+
+	private void scheduleUpdate(int delay) {
+		Main plugin = this;
+		scheduler.scheduleSyncDelayedTask(this, new Runnable() {
+			@Override
+			public void run() {
+				try {
+					UpdateChecker updateChecker = new UpdateChecker(plugin);
+					if (updateChecker.hasUpdate()) {
+						plugin.getLogger()
+								.warning("An update (v" + updateChecker.getNewVersion() + ") is now available!");
+						plugin.getLogger().warning("Download it from http://dev.bukkit.org/bukkit-plugins/edibleeggs/");
+					}
+				} catch (UpdateCheckException e) {
+					plugin.getLogger().warning("Unable to check for updates! Will try again later.");
+					scheduleUpdate(60 * 5);
+				}
+			}
+		}, delay * 20L);
 	}
 
 	private void parseEffects() {
@@ -133,31 +161,12 @@ public class Main extends JavaPlugin {
 			options.copyDefaults(true);
 			// options.copyHeader();
 			saveConfig();
+			scheduleUpdates();
 			parseEffects();
 		} catch (ScannerException e) {
 			e.printStackTrace();
 			return false;
 		}
 		return true;
-	}
-
-	private void scheduleUpdate(int delay) {
-		Main plugin = this;
-		scheduler.scheduleSyncDelayedTask(this, new Runnable() {
-			@Override
-			public void run() {
-				try {
-					UpdateChecker updateChecker = new UpdateChecker(plugin);
-					if (updateChecker.hasUpdate()) {
-						plugin.getLogger()
-								.warning("An update (v" + updateChecker.getNewVersion() + ") is now available!");
-						plugin.getLogger().warning("Download it from http://dev.bukkit.org/bukkit-plugins/edibleeggs/");
-					}
-				} catch (UpdateCheckException e) {
-					plugin.getLogger().warning("Unable to check for updates! Will try again later.");
-					scheduleUpdate(60 * 5);
-				}
-			}
-		}, delay * 20L);
 	}
 }

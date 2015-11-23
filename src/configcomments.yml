@@ -5,6 +5,7 @@
 #
 #Configuration format is as follows:
 #
+#notifyOnAvailableUpdate: <true or false>
 #rawEggRestoreSaturation: <Float saturation>
 #rawEggRestoreHunger: <Integer (1 is half of a drumstick)>
 #roastedEggRestoreSaturation: <Float saturation>

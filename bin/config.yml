@@ -1,3 +1,4 @@
+notifyOnAvailableUpdate: true
 rawEggRestoreSaturation: 0.8
 rawEggRestoreHunger: 1
 roastedEggRestoreSaturation: 1

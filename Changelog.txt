@@ -1,3 +1,6 @@
+v1.0.4 (11/23/15)
+Added configuration option to disable console update notifications
+
 v1.0.3 (11/23/15)
 Added update notifier
 
