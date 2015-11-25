@@ -1,7 +1,7 @@
 name: EdibleEggs
 author: Smiley43210
 main: com.github.smiley43210.edibleeggs.Main
-version: 1.0.4
+version: 1.0.5
 commands:
   edibleeggs:
     description: Reload the EdibleEggs configuration file.

@@ -1,3 +1,6 @@
+v1.0.5 (11/25/15)
+Made roasted eggs unthrowable
+
 v1.0.4 (11/23/15)
 Added configuration option to disable console update notifications
 

@@ -80,6 +80,12 @@ public class PlayerInteractListener implements Listener {
 					}
 				}
 			}
+		} else if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+			if (event.hasItem() && event.getItem().getType() == Material.EGG) {
+				if (isRoasted(player.getItemInHand())) {
+					event.setCancelled(true);
+				}
+			}
 		}
 	}
 
