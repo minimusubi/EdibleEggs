@@ -3,19 +3,24 @@
 #This configuration file specifies the effects that a player
 # can get from eating a raw egg.
 #
+#Use this link as a reference for a list of effects and effect names
+#http://minecraft.gamepedia.com/Data_values#Status_effects
+#Use this link as a reference for information about each effect
+#http://minecraft.gamepedia.com/Status_effect#List_of_effects
+#
 #Configuration format is as follows:
 #
 #notifyOnAvailableUpdate: <true or false>
 #rawEggRestoreSaturation: <Float saturation>
-#rawEggRestoreHunger: <Integer (1 is half of a drumstick)>
+#rawEggRestoreHunger: <Integer (1 is half of a drumstick on the HUD)>
 #roastedEggRestoreSaturation: <Float saturation>
-#roastedEggRestoreHunger: <Integer (1 is half of a drumstick)>
+#roastedEggRestoreHunger: <Integer (1 is half of a drumstick on the HUD)>
 #rawEggEffects:
-#  <Effect ID>:
+#  <Effect Name>:
 #    chance: <integer from 1-100>
 #    amplifier: <amplifier>
 #    duration: <seconds>
-#  <Effect ID>:
+#  <Effect Name>:
 #    chance: <integer from 1-100>
 #    amplifier: <amplifier>
 #    duration: <seconds>

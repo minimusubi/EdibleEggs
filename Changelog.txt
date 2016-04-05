@@ -1,3 +1,12 @@
+v1.1.0 (4/4/16)
+Improved internal effect handling
+Use effect names instead of IDs in configuration file
+Automatic conversion of effect IDs to names in configuration file
+Skip invalid effect configurations instead of throwing an exception
+
+v1.0.6 (3/3/16)
+Updated for 1.9
+
 v1.0.5 (11/25/15)
 Made roasted eggs unthrowable
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_9_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,8 +12,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import net.minecraft.server.v1_9_R1.NBTTagCompound;
 
 public class PlayerInteractListener implements Listener {
 
@@ -25,17 +24,17 @@ public class PlayerInteractListener implements Listener {
 		random = new Random();
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void playerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
-			if (player.isSneaking() && event.hasItem() && event.getItem().getType() == Material.EGG) {
+			if (player.isSneaking() && event.hasItem() && event.getItem().getType() == Material.EGG
+					&& player.getInventory().getItemInMainHand().getType() == Material.EGG) {
 				if (player.getFoodLevel() < 20 && player.hasPermission("edibleeggs.eat")) {
-					ItemStack itemStack = player.getItemInHand();
+					ItemStack itemStack = player.getInventory().getItemInMainHand();
 
 					if (!isRoasted(itemStack)) {
-						HashMap<Integer, HashMap<String, Integer>> effectsMap = plugin.getRawEggEffects();
+						HashMap<Integer, EggEffect> effectsMap = plugin.getRawEggEffects();
 						ArrayList<Integer> chanceList = plugin.getRawEggChances();
 
 						player.setFoodLevel(
@@ -60,9 +59,9 @@ public class PlayerInteractListener implements Listener {
 						// plugin.getLogger().warning("resultChance:" +
 						// resultChance);
 						if (effectsMap.containsKey(resultChance)) {
-							HashMap<String, Integer> effectMap = effectsMap.get(resultChance);
-							player.addPotionEffect(new PotionEffect(PotionEffectType.getById(effectMap.get("id")),
-									effectMap.get("duration") * 20, effectMap.get("amplifier") - 1), true);
+							EggEffect effect = effectsMap.get(resultChance);
+							player.addPotionEffect(new PotionEffect(effect.getEffect(), effect.getDuration() * 20,
+									effect.getAmplifier() - 1), true);
 						}
 					} else {
 						player.setFoodLevel(Math
@@ -76,13 +75,13 @@ public class PlayerInteractListener implements Listener {
 					if (amount > 1) {
 						itemStack.setAmount(amount - 1);
 					} else {
-						player.setItemInHand(new ItemStack(Material.AIR));
+						player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 					}
 				}
 			}
 		} else if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if (event.hasItem() && event.getItem().getType() == Material.EGG) {
-				if (isRoasted(player.getItemInHand())) {
+				if (isRoasted(player.getInventory().getItemInMainHand())) {
 					event.setCancelled(true);
 				}
 			}
@@ -90,7 +89,7 @@ public class PlayerInteractListener implements Listener {
 	}
 
 	private boolean isRoasted(ItemStack itemStack) {
-		net.minecraft.server.v1_8_R3.ItemStack itemStackNMS = CraftItemStack.asNMSCopy(itemStack);
+		net.minecraft.server.v1_9_R1.ItemStack itemStackNMS = CraftItemStack.asNMSCopy(itemStack);
 		if (itemStackNMS.hasTag()) {
 			NBTTagCompound tag = itemStackNMS.getTag();
 			if (tag.hasKey("Roasted") && tag.getBoolean("Roasted")) {
