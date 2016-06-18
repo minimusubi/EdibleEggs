@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_9_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +12,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_10_R1.NBTTagCompound;
 
 public class PlayerInteractListener implements Listener {
 
@@ -89,7 +89,7 @@ public class PlayerInteractListener implements Listener {
 	}
 
 	private boolean isRoasted(ItemStack itemStack) {
-		net.minecraft.server.v1_9_R1.ItemStack itemStackNMS = CraftItemStack.asNMSCopy(itemStack);
+		net.minecraft.server.v1_10_R1.ItemStack itemStackNMS = CraftItemStack.asNMSCopy(itemStack);
 		if (itemStackNMS.hasTag()) {
 			NBTTagCompound tag = itemStackNMS.getTag();
 			if (tag.hasKey("Roasted") && tag.getBoolean("Roasted")) {

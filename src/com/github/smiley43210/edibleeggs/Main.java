@@ -6,11 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfigurationOptions;
-import org.bukkit.craftbukkit.v1_9_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -18,7 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.yaml.snakeyaml.scanner.ScannerException;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_10_R1.NBTTagCompound;
 
 public class Main extends JavaPlugin {
 
@@ -49,9 +50,9 @@ public class Main extends JavaPlugin {
 
 		ItemStack roastedEgg = new ItemStack(Material.EGG);
 		ItemMeta roastedEggMeta = roastedEgg.getItemMeta();
-		roastedEggMeta.setDisplayName("Roasted Egg");
+		roastedEggMeta.setDisplayName(ChatColor.RESET + "Roasted Egg");
 		roastedEgg.setItemMeta(roastedEggMeta);
-		net.minecraft.server.v1_9_R1.ItemStack roastedEggNMS = CraftItemStack.asNMSCopy(roastedEgg);
+		net.minecraft.server.v1_10_R1.ItemStack roastedEggNMS = CraftItemStack.asNMSCopy(roastedEgg);
 		NBTTagCompound tag = roastedEggNMS.getTag();
 		if (tag == null) {
 			tag = new NBTTagCompound();
